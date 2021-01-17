@@ -1,6 +1,8 @@
 // Import the discord.js module
 const Discord = require('discord.js');
 
+require('dotenv').config()
+
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
@@ -45,7 +47,7 @@ function countMedals(){
 function createMessage(users){
     var sortable = [];
     users.forEach(usr =>{
-
+        sortable.push()
     });
 }
 
@@ -53,4 +55,4 @@ function createMessage(users){
 
 
 // Log our bot in using the token from https://discord.com/developers/applications
-client.login('Nzk5OTU0NDU3NTQ5OTk2MDc0.YALFpQ.O8lNiGzSEGlek6giMd2eB5TDDe8');
+client.login(process.env.TOKEN);
