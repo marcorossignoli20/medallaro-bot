@@ -6,17 +6,21 @@ require('dotenv').config()
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
+const hof_channel_id = '789977985154678785';
+
 let hof_channel;
 
+//Executed on bot ready
 client.on('ready', () => {
     console.log('I am ready!');
-    hof_channel = client.channels.cache.get('789977985154678785');
+    hof_channel = client.channels.cache.get(hof_channel_id);
     deleteMessages();
     countMedals()
-    
 });
 
+//Each time there is a new message in hof channel
 client.on('message', message => {
+    //Checks if the message is not from itself
     if(message.author == client.user) return;
 
     if(message.channel === hof_channel){
@@ -36,7 +40,7 @@ client.on("messageDelete", (msgDelete)=>{
 function deleteMessages(){
     hof_channel.messages.fetch()
         .then(messages => {
-            const my_msg = messages.filter(m => m.author.id === '799954457549996074');
+            const my_msg = messages.filter(m => m.author === client.user);
             hof_channel.bulkDelete(my_msg);
         })
         .catch(console.error);
@@ -71,16 +75,16 @@ function createMessage(users){
     for(i = 0; i < keys.length; i++){
         switch(i){
             case 0:
-                text += '\n:first_place:' + keys[i] + ' : ' + orderedUsers[keys[i]] + "\n"; 
+                text += ':first_place: ' + keys[i] + ' : ' + orderedUsers[keys[i]] + "\n"; 
                 break;
             case 1:
-                text += ':second_place:' + keys[i]+ ' : ' + orderedUsers[keys[i]] + "\n"; 
+                text += ':second_place: ' + keys[i]+ ' : ' + orderedUsers[keys[i]] + "\n"; 
                 break;
             case 2:
-                text += ':third_place:' + keys[i] + ' : ' + orderedUsers[keys[i]] + "\n"; 
+                text += ':third_place: ' + keys[i] + ' : ' + orderedUsers[keys[i]] + "\n"; 
                 break;
             default:
-                text += ':regional_indicator_l:' + keys[i] + ' : ' + orderedUsers[keys[i]] + "\n"; 
+                text += ':regional_indicator_l: ' + keys[i] + ' : ' + orderedUsers[keys[i]] + "\n"; 
                 break;
         }
     }
